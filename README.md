@@ -93,7 +93,6 @@ fromEmitter(myEmitter)
 
 const io = require("socket.io")();
 
-fromEvent(io, "connect");
 fromEmitter(io).event("connect")
 // for both error because couldn't find "off" method
 
