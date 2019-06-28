@@ -2,7 +2,7 @@
 
 A statically typed, more powerful alternative to RxJS's `fromEvent`.
 
-Tested with TS 3.5, probably won't work for previous versions. For previous versions you can still try writing `"click" as "click"` instead of just `"click"`, it might work.
+Tested with TS 3.5 with strict mode, probably won't work for previous versions. For previous versions you can still try writing `"click" as "click"` instead of just `"click"`, it might work.
 
 Also `document.querySelector` returns `Element`, make sure to make it `HTMLElement` either via assertion (cast) or via type parameter
 
