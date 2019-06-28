@@ -118,7 +118,7 @@ Firstly `fromEmitter` can take any emitters that have the style &ndash;
 }
 ```
 
-The user has to provide name of addMethod and optionally name of removeMethod via the `withMethods` method. But only when we can't find the popular pairs like `on` & `off` and others.
+The user has to provide name of addMethod and name of removeMethod or `null` via the `withMethods` method. But only when we can't find the popular pairs like `on` & `off` and others.
 
 The style doesn't care about any things that it doesn't depend on. For example the return types, extra arguments etc. The style is just strict enough to not cause runtime errors.
 
