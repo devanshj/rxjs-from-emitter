@@ -1,11 +1,11 @@
 import { And, AreEqual, IsLiteral, IsLessThan15, AreExact, IsAnyArray } from "./utils";
-import { EmitterInferences, InferencesLength } from "./inferences";
+import { Inferences, InferencesLength } from "./inferences";
 
 // -------------------------
 // EventIdentifier
 
 type _EventIdentifier<E, M extends string> =
-	| EmitterInferences<E, M>[number]["I"]
+	| Inferences<E, M>[number]["I"]
 	| (
 		And<[
 			E extends HTMLElement ? true : false,
@@ -18,7 +18,7 @@ type _EventIdentifier<E, M extends string> =
 export type EventIdentifier<E, M extends string> =
 	| _EventIdentifier<E, M>
 	| (
-		IsLessThan15<InferencesLength<EmitterInferences<E, M>>> extends true
+		IsLessThan15<InferencesLength<Inferences<E, M>>> extends true
 			? never
 			: unknown
 	);
@@ -29,7 +29,7 @@ export type EventIdentifier<E, M extends string> =
 export type __EventIdentifierStrict<
 	E,
 	M extends string,
-	G extends EmitterInferences<E, M> = EmitterInferences<E, M>
+	G extends Inferences<E, M> = Inferences<E, M>
 > = 
 	| {
 		[K in keyof G]:
@@ -56,7 +56,7 @@ export type __EventIdentifierStrict<
 type _EventIdentifierStrict<
 		E,
 		M extends string,
-		G extends EmitterInferences<E, M> = EmitterInferences<E, M>
+		G extends Inferences<E, M> = Inferences<E, M>
 	> = 
 	| __EventIdentifierStrict<E, M, G>
 	| (
@@ -72,7 +72,7 @@ export type EventIdentifierStrict<E, M extends string> =
 // EventExtras
 
 type _EventExtras<E, M extends string> =
-	Exclude<EmitterInferences<E, M>[number]["X"], never[]>;
+	Exclude<Inferences<E, M>[number]["X"], never[]>;
 
 export type EventExtras<E, M extends string> = 
 	_EventExtras<E, M> extends never
@@ -87,7 +87,7 @@ type _ObservedValue<
 	E,
 	M extends string,
 	I extends EventIdentifier<E, M>,
-	G extends EmitterInferences<E, M> = EmitterInferences<E, M>
+	G extends Inferences<E, M> = Inferences<E, M>
 > =
 	TransformArgs<
 		| {

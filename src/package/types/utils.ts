@@ -1,8 +1,3 @@
-export type GetProp<T, P> =
-	P extends keyof T
-		? T[P]
-		: undefined;
-
 export type And<T extends boolean[]> = 
 	AreEqual<T[number], true>;
 
@@ -155,7 +150,7 @@ export type SubtractFrom15<T extends number> =
 	15 extends T ? 0 :
 	number;
 
-export type AddOne<T extends number> =
+export type Add1<T extends number> =
 	0 extends T ? 1 :
 	1 extends T ? 2 :
 	2 extends T ? 3 :

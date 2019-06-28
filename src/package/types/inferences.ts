@@ -1,7 +1,7 @@
 import { ListenerHandler } from "./listener-handler";
-import { AreEqual, AreExact, MathMax, ToNumber, SubtractFrom15, AddOne } from "./utils";
+import { AreEqual, AreExact, MathMax, ToNumber, SubtractFrom15, Add1 } from "./utils";
 
-export type EmitterInferences<E, M extends string> = Exclude<{
+export type Inferences<E, M extends string> = Exclude<{
 	[K in keyof E]:
 		K extends M
 			? E[K] extends ListenerHandler<
@@ -57,7 +57,7 @@ export type InferencesLength<
 		MathMax<{
 			[K in keyof G]:
 				AreExact<G[K], EmptyInference> extends true
-					? AddOne<ToNumber<K>>
+					? Add1<ToNumber<K>>
 					: never
 		}>
 	>;
