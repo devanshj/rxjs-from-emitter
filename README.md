@@ -140,7 +140,7 @@ You get auto-completion for event identifiers, and also since the Observable is 
 ```typescript
 import { fromEvent } from "rxjs-from-emitter/compat"
 
-fromEvent(process, "exit" as "exit) // Observable<number>
+fromEvent(process, "exit" as "exit"); // Observable<number>
 ```
 
 ### [It also solves some \*cough* flaws \*cough* of `fromEvent`](https://github.com/devanshj/rxjs-from-emitter/blob/master/docs/solving-some-from-event-flaws.md)
