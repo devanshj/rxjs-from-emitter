@@ -61,4 +61,4 @@ type Tests = [
     >
 ];
 
-type Works = AssertTrue<Tests[number]>
+type Works = AssertTrue<Tests[number]>;

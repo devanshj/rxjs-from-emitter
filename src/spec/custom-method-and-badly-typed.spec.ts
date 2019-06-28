@@ -15,13 +15,13 @@ class Emitter {
 	): true
 
 	register(
-	eventName: "b",
-	listener: (a0: any, a1: "c") => void
+		eventName: { foo: "b" },
+		listener: (a0: any, a1: "c") => void
 	): { "foo": "foo" }
 
 	register(
-		eventName: string,
-		listener: Function
+		eventName: any,
+		listener: any
 	): true | { "foo": "foo" } {
 		return Math.random() ? true : { "foo": "foo" } ;
 	}
@@ -42,11 +42,14 @@ class Emitter {
 	) {}
 }
 
-type ExpectedEventIdentifier = string;
-type ExpectedEventIdentifierStrict = "a" | "b";
+type ExpectedEventIdentifier =
+	| string
+	| "a"
+	| { foo: "b" };
+type ExpectedEventIdentifierStrict = "a";
 type ExpectedObservedValue<I> =
 	I extends "a" ? ["a", "b"] :
-	I extends "b" ? [any, "c"]:
+	I extends { foo: "b" } ? [any, "c"]:
 	unknown;
 
 type ExpectedListenerHandlerKey = 
