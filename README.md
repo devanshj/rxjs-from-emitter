@@ -59,8 +59,8 @@ const myEmitter = new class {
     off(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
 }
 
-fromEmitter(myEmitter).event("myEmitter"); // error: Expected 2 arguments, but got 1.
-fromEmitter(myEmitter).event("myEmitter", 1000); // no error, Observable<["something", number]>
+fromEmitter(myEmitter).event("event-1"); // error: Expected 2 arguments, but got 1.
+fromEmitter(myEmitter).event("event-1", 1000); // no error, Observable<["something", number]>
 ```
 
 ### Support for custom method names without any compromise on types
