@@ -156,7 +156,7 @@ import { fromEvent } from "rxjs-from-emitter/compat"
 fromEvent(process, "exit" as const) // Observable<number>
 ```
 
-### [It also solves some \*cough* flaws \*cough* of `fromEvent`](https://github.com/devanshj/rxjs-from-emitter/blob/master/solving-some-from-event-flaws)
+### [It also solves some \*cough* flaws \*cough* of `fromEvent`](https://github.com/devanshj/rxjs-from-emitter/blob/master/docs/solving-some-from-event-flaws.md)
 
 ## What do you lose?
 
