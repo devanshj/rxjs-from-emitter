@@ -94,7 +94,7 @@ fromEmitter(myEmitter)
 const io = require("socket.io")();
 
 fromEmitter(io).event("connect")
-// for both error because couldn't find "off" method
+// error because couldn't find "off" method
 
 fromEmitter(io)
 .withMethods("on", null)
