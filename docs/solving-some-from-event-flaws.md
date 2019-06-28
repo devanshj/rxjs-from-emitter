@@ -15,7 +15,7 @@ Let's say you wrote a NodeJS code like &ndash;
 const exit$ = fromEvent(process, "exit")
 ```
 
-You actually get a TypeScript error saying &ndash;
+You actually get a TypeScript error if you are in strict mode (which is recommended) saying &ndash;
 
 ```plaintext
 Argument of type 'Process' is not assignable to parameter of type 'FromEventTarget<unknown>'.
