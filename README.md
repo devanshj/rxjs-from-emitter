@@ -155,3 +155,9 @@ import { fromEvent } from "rxjs-from-emitter/compat"
 
 fromEvent(process, "exit" as const) // Observable<number>
 ```
+
+### [It also solves some \*cough* flaws \*cough* of `fromEvent`](https://github.com/devanshj/rxjs-from-emitter/blob/master/solving-some-from-event-flaws)
+
+## What do you lose?
+
+`fromEvent` can take array of event emitters, but `fromEmitter` takes only one. This is to keep static cheking easier and avoid complexity
