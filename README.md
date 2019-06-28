@@ -8,7 +8,7 @@ Also `document.querySelector` returns `Element`, make sure to make it `HTMLEleme
 
 ## Features
 
-In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all event emitter not just DOM's `EventTarget` or node's `EventEmitter`.
+In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all kinds of event emitters not just DOM's `EventTarget` or node's `EventEmitter`.
 
 ### Observable inferences corresponding to callback arguments
 
