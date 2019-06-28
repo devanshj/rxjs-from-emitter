@@ -2,6 +2,8 @@
 
 A statically typed, more powerful alternative to RxJS's `fromEvent`.
 
+Tested with TS 3.5, probably won't work for previous versions. For previous versions you can still try writing `"click" as "click"` instead of just `"click"` might work.
+
 ## Features
 
 In the following examples `fromEvent` is from rxjs. And by "error" I mean compile-time static errors not runtime. Also examples work for all event emitter not just DOM's `EventTarget` or node's `EventEmitter`.
@@ -141,3 +143,11 @@ But there is no hackish stuff like recursive types that drain CPU & RAM and are 
 ### Auto-completion, better DX
 
 ![Auto-completion, better DX](docs/better-dx.gif)
+
+### Don't like the API? You can still have some features using `fromEvent` and `fromEventStrict` exported from `rxjs-from-emitter/compat`. It's not fully compatible with RxJS's `fromEvent` though
+
+```typescipt
+import { fromEvent } from "rxjs-from-emitter/compat"
+
+fromEvent(process, "exit" as const) // Observable<number>
+```
