@@ -8,15 +8,12 @@ Also `document.querySelector` returns `Element`, make sure to make it `HTMLEleme
 
 ## Features
 
-In the following examples `fromEvent` is from rxjs. And by "error" I mean compile-time static errors not runtime. Also examples work for all event emitter not just DOM's `EventTarget` or node's `EventEmitter`.
+In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all event emitter not just DOM's `EventTarget` or node's `EventEmitter`.
 
 ### Observable inferences corresponding to callback arguments
 
 ```typescript
-fromEvent(document.body, "click") // Observable<Event>
 fromEmitter(document.body).event("click") // Observable<MouseEvent>
-
-fromEvent(spawn("echo", ["hello"]), "exit") // Observale<{}>
 fromEmitter(spawn("echo", ["hello"])).event("exit") // Observale[number | null, string | null]>
 
 const myEmitter = new class {
@@ -33,10 +30,7 @@ const myEmitter = new class {
     off(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
 }
 
-fromEvent(myEmitter, "event-1"); // Observable<{}>
 fromEmitter(myEmitter).event("event-1"); // Observable<["something", number]>
-
-fromEvent(myEmitter, "event-2"); // Observable<{}>
 fromEmitter(myEmitter).event("event-2"); // Observable<"onlyOneArgumentSoNoArray">
 
 ```
@@ -44,12 +38,11 @@ fromEmitter(myEmitter).event("event-2"); // Observable<"onlyOneArgumentSoNoArray
 ### Error on invalid event identifiers
 
 ```typescript
-fromEvent(document.body, "foo");
 fromEmitter(document.body).event("foo");
-// Both are allowed because you can do document.body.dispatch(new Event("foo"))
+// allowed because you can do document.body.dispatch(new Event("foo"))
 
-// But not allowed in strict version which takes only literals defined in the type.
 fromEmitter(document.body).eventStrict("foo"); // error
+// not allowed in strict version which takes only literals defined in the type.
 
 ```
 
@@ -66,8 +59,6 @@ const myEmitter = new class {
     off(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
 }
 
-fromEvent(myEmitter, "event-1"); // no error, Observable<{}>
-
 fromEmitter(myEmitter).event("myEmitter"); // error: Expected 2 arguments, but got 1.
 fromEmitter(myEmitter).event("myEmitter", 1000); // no error, Observable<["something", number]>
 ```
@@ -83,7 +74,6 @@ const myEmitter = new class {
     unregister(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
 }
 
-fromEvent(myEmitter, "event-1") // error because not supported
 fromEmitter(myEmitter).event("event-1") // error couldn't identify methods
 
 fromEmitter(myEmitter)
@@ -131,8 +121,6 @@ const myEmitter = new class {
     off(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
 }
 
-fromEvent(myEmitter, 0) // error
-
 fromEmitter(myEmitter).event(0) // no error, Observable<["something", number]>
 fromEmitter(myEmitter).event({ type: "foo" }) // no error, Observable<"onlyOneArgumentSoNoArray">
 ```
@@ -153,7 +141,7 @@ You get auto-completion for event identifiers, and also since the Observable is 
 ```typescript
 import { fromEvent } from "rxjs-from-emitter/compat"
 
-fromEvent(process, "exit" as const) // Observable<number>
+fromEvent(process, "exit" as "exit) // Observable<number>
 ```
 
 ### [It also solves some \*cough* flaws \*cough* of `fromEvent`](https://github.com/devanshj/rxjs-from-emitter/blob/master/docs/solving-some-from-event-flaws.md)
