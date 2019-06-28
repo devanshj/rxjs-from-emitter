@@ -40,6 +40,8 @@ class Emitter {
 		bar: string,
 		baz: number
 	) {}
+
+	foobar() {}
 }
 
 type ExpectedEventIdentifier =

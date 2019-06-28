@@ -1,3 +1,5 @@
+import { AreEqual } from "./utils";
+
 export type ListenerHandler<
 	I0 extends any, A0 extends any[], X0 extends any[],
 	I1 extends any, A1 extends any[], X1 extends any[],
@@ -109,13 +111,11 @@ export type ListenerHandler<
 }
 
 type IsListenerHandler<T> = 
-	T extends (
+	AreEqual<T,(
 		identifier: any,
 		listener: (...args: any[]) => any,
 		...extras: any[]
-	) => any
-		? true
-		: false;
+	) => any>;
 
 export type ListenerHandlerKey<T> = {
 	[K in keyof T]:
