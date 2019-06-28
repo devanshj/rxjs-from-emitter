@@ -1,11 +1,9 @@
 
 # Problems
 
-Okay, let's face it `fromEvent`'s types aren't great. Which is fair because when it's types were first written, TypeScript didn't had feature to make it cool.
+Apart from not being type-safe, there are some things that `fromEvent` got wrong on a more design-level. They are as follows &ndash;
 
-But now we have those abilities now. We now make it better. But first I want to point things that `fromEvent` got wrong.
-
-I may come across as someone picking on RxJS or it's types. Absolutely not, I love RxJS and am grateful to the smart and selfless folks working on it. I'm criticizing only to show how `fromEmitter` is better.
+Also, I may come across as someone picking on RxJS or it's types. Absolutely not, I love RxJS and am grateful to the smart and selfless folks working on it. I'm criticizing only to show how `fromEmitter` is solving these problems.
 
 ## The way `fromEvent` checks if the first argument passed is an emitter or not is incorrect
 
