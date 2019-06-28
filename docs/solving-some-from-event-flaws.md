@@ -69,7 +69,7 @@ The thing is `process` doesn't extend `NodeStyleEventEmitter`. Because type defi
 If you notice none of the overloads have `event: string`. All of them are string literals, they are narrower/more specific that string. Hence they can't extend string and hence `typeof process` can't extend `NodeStyleEventEmitter`
 
 ```typescript
-type IsNodeStyleEventEmitter = typeof process extends `NodeStyleEventEmitter` ? "yep" : "nope";
+type IsNodeStyleEventEmitter = typeof process extends NodeStyleEventEmitter ? "yep" : "nope";
 // "nope"
 ```
 
