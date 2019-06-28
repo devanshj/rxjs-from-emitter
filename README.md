@@ -126,7 +126,7 @@ fromEmitter(myEmitter).event({ type: "foo" }) // no error, Observable<"onlyOneAr
 
 ### Type-level code, but no hacks
 
-There is a lot of TypeScript type-level code involved. As a matter of fact type-level code is almost 10 times more than the runtime code.
+There is a lot of TypeScript type-level code involved. As a matter of fact type-level code is almost 6 times more than the runtime code.
 But there is no hackish stuff like recursive types that drain CPU & RAM and are [also not recommend to be used by the TypeScript folks](https://github.com/microsoft/TypeScript/pull/24897#issuecomment-401418254). They can also break in future [as they broke in past](https://github.com/microsoft/TypeScript/issues/30188#issue-416399563). `rxjs-from-emitter` has non of those.
 
 ### Auto-completion, better DX
