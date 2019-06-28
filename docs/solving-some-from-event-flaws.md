@@ -96,7 +96,7 @@ Even a minor change in the style will make it incompatible with `fromEvent`. For
 
 ## It's a little too strict
 
-You know when you create a observable via the constructor, it's optional to return `TearDownLogic`. But for event emitters it's compulsory to have a function that removes the listener. A lot of 3rd party event emitters don't have removers. For example there is no `off` method is socket-io's socket, there is only `on`.
+You know when you create a observable via the constructor, [it's optional to return `TearDownLogic`](https://github.com/ReactiveX/rxjs/blob/01a09789a0a9484c368b7bd6ed37f94d25490a00/src/internal/types.ts#L30). But for event emitters it's compulsory to have a function that removes the listener. A lot of 3rd party event emitters don't have removers. For example there is no `off` method is socket-io's socket, there is only `on`.
 
 # Solution
 
