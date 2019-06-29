@@ -3,15 +3,15 @@ import { EventIdentifier, EventIdentifierStrict, ObservedValue } from "../packag
 import { AreEqual } from "../package/types/utils";
 
 class NoTypesEmitter {
-    on(
-        name: any,
-        handler: any
-    ) {};
+	on(
+		name: any,
+		handler: any
+	) {};
 
-    off(
-        name: any,
-        handler: any
-    ) {};
+	off(
+		name: any,
+		handler: any
+	) {};
 }
 
 type E = NoTypesEmitter;
@@ -25,22 +25,22 @@ type ActualEventIdentifierStrict = EventIdentifierStrict<E, M>;
 type ActualObservedValue<I> = ObservedValue<E, M, I>;
 
 type Tests = [
-    AreEqual<
-        M,
-        "on"
-    >,
-    AreEqual<
-        ExpectedEventIdentifier,
-        ActualEventIdentifier
-    >,
-    AreEqual<
-        ExpectedEventIdentifierStrict,
-        ActualEventIdentifierStrict
-    >,
-    AreEqual<
-        ExpectedObservedValue<"something">,
-        ActualObservedValue<"something">
-    >
+	AreEqual<
+		M,
+		"on"
+	>,
+	AreEqual<
+		ExpectedEventIdentifier,
+		ActualEventIdentifier
+	>,
+	AreEqual<
+		ExpectedEventIdentifierStrict,
+		ActualEventIdentifierStrict
+	>,
+	AreEqual<
+		ExpectedObservedValue<"something">,
+		ActualObservedValue<"something">
+	>
 ];
 
 type Works = AssertTrue<Tests[number]>

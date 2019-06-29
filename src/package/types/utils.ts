@@ -60,7 +60,7 @@ export type IsLiteral<T> =
 
 // https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650
 export type AreExact<A, B> = 
-    (<T>() => T extends A ? 0 : 1) extends (<T>() => T extends B ? 0 : 1)
+	(<T>() => T extends A ? 0 : 1) extends (<T>() => T extends B ? 0 : 1)
 		? true
 		: false;
 

@@ -5,7 +5,7 @@ fi
 
 tsc --noEmitOnError
 if [ "$?" != "0" ]; then
-    exit
+	exit
 fi
 
 cp -r dist/package/ distribution/

@@ -5,11 +5,11 @@ class Emitter {
 	on(
 		eventName: string,
 		listener: Function,
-        extra0: boolean,
-        extra1?: number
-    ) {}
-    
-    off(
+		extra0: boolean,
+		extra1?: number
+	) {}
+	
+	off(
 		eventName: string,
 		listener: Function
 	) {}
@@ -22,10 +22,10 @@ type M = Method<E>;
 type ActualEventExtras = EventExtras<E, M>
 
 type Tests = [
-    AreEqual<
-        ExpectedEventExtras,
-        ActualEventExtras
-    >
+	AreEqual<
+		ExpectedEventExtras,
+		ActualEventExtras
+	>
 ];
 
 type Works = AssertTrue<Tests[number]>

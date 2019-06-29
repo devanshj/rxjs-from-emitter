@@ -9,7 +9,7 @@ class EmitterWith15Events {
 		listener: (_: "something-something") => void
 	): void;
 
-    on(
+	on(
 		eventName: "event-0",
 		listener: (_: "event-0-result") => void
 	): void;
@@ -94,16 +94,16 @@ class EmitterWith15Events {
 		eventName: "event-14",
 		listener: (_: "event-14-result") => void
 	): void;
-    
-    on(
-        eventName: string,
-        listener: Function
-    ) {}
+	
+	on(
+		eventName: string,
+		listener: Function
+	) {}
 
-    off(
-        eventName: string,
-        listener: Function
-    ) {}
+	off(
+		eventName: string,
+		listener: Function
+	) {}
 }
 
 type E = EmitterWith15Events;
