@@ -121,7 +121,7 @@ const myEmitter = new class {
     ): void
     on(name: string, listener: (...args: any[]) => any  ) {}
 
-    off(name: "event-1", listener: (arg1: "something", arg2: number) => void) {}
+    off(name: any, listener: Function) {}
 }
 
 fromEmitter(myEmitter).event(0) // no error, Observable<["something", number]>
