@@ -94,6 +94,8 @@ All the [emitter interfaces](https://github.com/ReactiveX/rxjs/blob/a9fa9d421d69
 
 Even a minor change in the style will make it incompatible with `fromEvent`. For example let's say the you want to use `fromEvent` with a 3rd party event emitter that is jQuery style except `on` takes number as event names instead of string. Now if someone is writing JS, they can use `fromEvent` and it would work because it passes whatever the type is to the `on` method. On the otherhand in TS you'll get a error saying `on` methods are not compatible because it wants string.
 
+Also in case of DOM style emitters, it actually just assumes that it's DOM's EventTarget and thus it returns observable of type [`Event`](https://github.com/microsoft/TypeScript/blob/3e6856137ad2618dcdfe13ee49a06cca8e4d7ee2/lib/lib.dom.d.ts#L5092-L5099) in lib.dom.d.ts
+
 ## It's a little too strict
 
 You know when you create a observable via the constructor, [it's optional to return `TearDownLogic`](https://github.com/ReactiveX/rxjs/blob/01a09789a0a9484c368b7bd6ed37f94d25490a00/src/internal/types.ts#L30). But for event emitters it's compulsory to have a function that removes the listener. A lot of 3rd party event emitters don't have removers. For example there is no `off` method is socket.io's socket, there is only `on`.
