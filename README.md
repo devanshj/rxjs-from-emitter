@@ -14,7 +14,7 @@ Also `document.querySelector` returns `Element`, make sure to make it `HTMLEleme
 
 In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all kinds of event emitters not just DOM's `EventTarget` or node's `EventEmitter`.
 
-### Observable inferences corresponding to callback arguments
+### Observable inferences corresponding to listener's arguments
 
 ```typescript
 fromEvent(document.body, "click") // Observable<Event>
