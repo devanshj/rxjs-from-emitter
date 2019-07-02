@@ -10,14 +10,17 @@ Tested with TS 3.5 with strict mode, probably won't work for previous versions. 
 
 Also `document.querySelector` returns `Element`, make sure to make it `HTMLElement` either via assertion (cast) or via type parameter
 
-## Features
+## Features & Comparison with RxJS's `fromEvent`
 
 In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all kinds of event emitters not just DOM's `EventTarget` or node's `EventEmitter`.
 
 ### Observable inferences corresponding to callback arguments
 
 ```typescript
+fromEvent(document.body, "click") // Observable<Event>
 fromEmitter(document.body).event("click") // Observable<MouseEvent>
+
+fromEvent(spawn("echo", ["hello"]), "exit") // Observable<unknown>
 fromEmitter(spawn("echo", ["hello"])).event("exit") // Observable<[number | null, string | null]>
 
 const myEmitter = new class {
@@ -34,6 +37,10 @@ const myEmitter = new class {
     off(name: string, listener: Function) {}
 }
 
+fromEvent(myEmitter, "event-1"); // Observable<unknown>
+fromEvent(myEmitter, "event-2"); // Observable<unknown>
+// in strict mode both of them will give unwarrant errors
+
 fromEmitter(myEmitter).event("event-1"); // Observable<["something", number]>
 fromEmitter(myEmitter).event("event-2"); // Observable<"onlyOneArgumentSoNoArray">
 
@@ -48,6 +55,12 @@ fromEmitter(document.body).event("foo");
 fromEmitter(document.body).eventStrict("foo"); // error
 // not allowed in strict version which takes only literals defined in the type.
 
+fromEmitter(process).event("foo");
+fromEmitter(process).eventStrict("foo")
+// error in both because `process.addListener("foo", () => {})` gives error
+
+fromEvent(document.body, "foo") // no error
+fromEvent(process, "foo") // no error
 ```
 
 ### Extras arguments taken into consideration
@@ -65,6 +78,8 @@ const myEmitter = new class {
 
 fromEmitter(myEmitter).event("event-1"); // error: Expected 2 arguments, but got 1.
 fromEmitter(myEmitter).event("event-1", 1000); // no error, Observable<["something", number]>
+
+fromEvent(myEmitter, "event-1") // no error
 ```
 
 ### Support for custom method names without any compromise on types
@@ -105,6 +120,7 @@ fromEmitter(io)
 .event("connect");
 // ok, Observable<Socket>
 
+// fromEvent supports non of this, you'll have to use fromEventPattern
 ```
 
 ### Doesn't assume the event identifiers type
@@ -126,6 +142,8 @@ const myEmitter = new class {
 
 fromEmitter(myEmitter).event(0) // no error, Observable<["something", number]>
 fromEmitter(myEmitter).event({ type: "foo" }) // no error, Observable<"onlyOneArgumentSoNoArray">
+
+fromEvent(myEmitter, 0) // error
 ```
 
 ### Type-level code, but no hacks
