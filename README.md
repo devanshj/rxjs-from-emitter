@@ -18,7 +18,7 @@ In the following examples, by "error" I mean compile-time static errors not runt
 
 ```typescript
 fromEmitter(document.body).event("click") // Observable<MouseEvent>
-fromEmitter(spawn("echo", ["hello"])).event("exit") // Observale[number | null, string | null]>
+fromEmitter(spawn("echo", ["hello"])).event("exit") // Observable<[number | null, string | null]>
 
 const myEmitter = new class {
     on(
