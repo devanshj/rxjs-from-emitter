@@ -6,10 +6,6 @@ A statically typed, more powerful alternative to RxJS's `fromEvent`.
 $ npm i rxjs-from-emitter
 ```
 
-Tested with TS 3.5 with strict mode, probably won't work for previous versions. For previous versions you can still try writing `"click" as "click"` instead of just `"click"`, it might work.
-
-Also `document.querySelector` returns `Element`, make sure to make it `HTMLElement` either via assertion (cast) or via type parameter
-
 ## Features & Comparison with RxJS's `fromEvent`
 
 In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all kinds of event emitters not just DOM's `EventTarget` or node's `EventEmitter`.
@@ -170,3 +166,8 @@ fromEvent(process, "exit" as "exit"); // Observable<number>
 ## What do you lose?
 
 `fromEvent` can take array of event emitters, but `fromEmitter` takes only one. This is to keep static cheking easier and avoid complexity
+
+
+Tested with TS 3.5 with strict mode, probably won't work for previous versions. For previous versions you can still try writing `"click" as "click"` instead of just `"click"`, it might work.
+
+Also `document.querySelector` returns `Element`, make sure to make it `HTMLElement` either via assertion (cast) or via type parameter
