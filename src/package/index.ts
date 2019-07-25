@@ -1,25 +1,19 @@
-import { EventIdentifier, EventExtras, ObservedValue, EventIdentifierStrict } from "./types";
+import { EventIdentifier, EventExtras, ObservedValue, EventIdentifierStrict, Method } from "./types";
 import { Observable } from "rxjs"
 import { DomEmitter, NodeEmitter, JqueryEmitter } from "./types/preset-emitter";
 import { ListenerHandlerKey } from "./types/listener-handler";
+import { AreEqual } from "./types/utils";
 
 
 
 type FromEmitter = 
 	<E>(emitter: E) =>
-		E extends DomEmitter ? {
-			event: EventSelector<E, "addEventListener">
-			eventStrict: EventSelectorStrict<E, "addEventListener">
-		} :
-		E extends NodeEmitter ? {
-			event: EventSelector<E, "addListener">
-			eventStrict: EventSelectorStrict<E, "addListener">
-		} :
-		E extends JqueryEmitter ? {
-			event: EventSelector<E, "on">
-			eventStrict: EventSelectorStrict<E, "on">
-		} :
-		WithMethods<E>;
+		AreEqual<Method<E>, never> extends true
+			? WithMethods<E>
+			: {
+				event: EventSelector<E, Method<E>>,
+				eventStrict: EventSelectorStrict<E, Method<E>>
+			};
 
 type EventSelector<E, M extends string> =
 	<I extends EventIdentifier<E, M>>

@@ -1,5 +1,15 @@
 import { And, AreEqual, IsLiteral, IsLessThan15, AreExact, IsAnyArray } from "./utils";
 import { Inferences, InferencesLength } from "./inferences";
+import { DomEmitter, NodeEmitter, JqueryEmitter } from "./preset-emitter";
+
+
+// -------------------------
+// Method
+
+export type Method<E> =
+	| (E extends DomEmitter ? "addEventListener" : never)
+	| (E extends NodeEmitter ? "addListener" : never)
+	| (E extends JqueryEmitter ? "on" : never);
 
 // -------------------------
 // EventIdentifier

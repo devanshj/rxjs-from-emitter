@@ -5,6 +5,7 @@ fi
 
 tsc --noEmitOnError
 if [ "$?" != "0" ]; then
+	echo "tsc exited with non-zero code"
 	exit
 fi
 
