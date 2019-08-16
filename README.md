@@ -6,6 +6,8 @@ A statically typed, more powerful alternative to RxJS's `fromEvent`.
 $ npm i rxjs-from-emitter
 ```
 
+Also there's [proposal (rxjs #4891)](https://github.com/ReactiveX/rxjs/issues/4891) to put this is RxJS itself
+
 ## Features & Comparison with RxJS's `fromEvent`
 
 In the following examples, by "error" I mean compile-time static errors not runtime. Also examples work for all kinds of event emitters not just DOM's `EventTarget` or node's `EventEmitter`.
