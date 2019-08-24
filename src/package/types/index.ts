@@ -1,4 +1,4 @@
-import { And, AreEqual, IsLiteral, IsLessThan15, AreExact, IsAnyArray } from "./utils";
+import { And, AreEqual, IsLiteral, IsLessThan15, IsAnyArray, DoesExtend, IsUnion, Not, AssertedProp } from "./utils";
 import { Inferences, InferencesLength } from "./inferences";
 import { DomEmitter, NodeEmitter, JqueryEmitter } from "./preset-emitter";
 
@@ -7,9 +7,14 @@ import { DomEmitter, NodeEmitter, JqueryEmitter } from "./preset-emitter";
 // Method
 
 export type Method<E> =
-	| (E extends DomEmitter ? "addEventListener" : never)
-	| (E extends NodeEmitter ? "addListener" : never)
-	| (E extends JqueryEmitter ? "on" : never);
+	E extends JqueryEmitter ?
+		"on" :
+	E extends NodeEmitter ?
+		"addListener" :
+	E extends DomEmitter ?
+		"addEventListener" :
+	never;
+
 
 // -------------------------
 // EventIdentifier
@@ -104,6 +109,19 @@ type _ObservedValue<
 			[K in keyof G]:
 				G[K] extends { "I": infer GI, "A": infer GA }
 					? AreEqual<I, GI> extends true
+						? GA
+						: never
+					: never
+		}[number]
+		| {
+			[K in keyof G]:
+				G[K] extends { "I": infer GI, "A": infer GA }
+					? And<[
+						IsLiteral<GI>,
+						IsLiteral<I>,
+						DoesExtend<I, GI>,
+						Not<IsUnion<AssertedProp<GA, 0>>>
+					]> extends true
 						? GA
 						: never
 					: never

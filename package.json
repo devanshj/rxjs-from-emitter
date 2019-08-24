@@ -1,6 +1,6 @@
 {
 	"name": "rxjs-from-emitter",
-	"version": "0.0.5",
+	"version": "0.0.7",
 	"description": "A statically typed, more powerful alternative to RxJS's `fromEvent`",
 	"main": "index.js",
 	"peerDependencies": {
@@ -8,8 +8,10 @@
 		"typescript": "^3.5.2"
 	},
 	"devDependencies": {
-		"@types/node": "^12.0.10",
+		"@types/node": "^12.7.2",
 		"@types/socket.io": "^2.1.2",
+		"chokidar": "^3.0.2",
+		"rxjs": "^6.5.2",
 		"typescript": "^3.5.3"
 	},
 	"keywords": [

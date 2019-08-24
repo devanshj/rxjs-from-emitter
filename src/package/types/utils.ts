@@ -6,6 +6,11 @@ export type Or<T extends boolean[]> =
 		? false
 		: true;
 
+export type Not<T extends boolean> =
+	AreEqual<T, true> extends true ? false :
+	AreEqual<T, false> extends true ? true :
+	boolean;
+
 export type AreEqual<A, B> =
 	IsAny<A> extends true
 		? IsAny<B> extends true
@@ -16,6 +21,11 @@ export type AreEqual<A, B> =
 			? true
 			: false :
 	_AreEqual<A, B>;
+
+export type DoesExtend<A, B> =
+	A extends B
+		? true
+		: false;
 
 export type IsAny<T> =
 	_AreEqual<
@@ -73,7 +83,13 @@ export type IsAnyArray<T> =
 			: false
 		: false;
 
+export type IsUnion<T> = Not<AreEqual<T, UnionToIntersection<T>>>
 
+// jcalz https://stackoverflow.com/a/50375286/9591609
+type UnionToIntersection<T> = 
+	(T extends any ? (_: T) => void : never) extends ((_: infer I) => void)
+		? I
+		: never
 
 export type IsLessThan15<T> = 
 	T extends 0 ? true :
@@ -168,3 +184,8 @@ export type Add1<T extends number> =
 	14 extends T ? 15 :
 	15 extends T ? 16 :
 	number;
+
+export type AssertedProp<T, P, F = never> = 
+	P extends keyof T
+		? T[P]
+		: F;

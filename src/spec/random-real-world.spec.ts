@@ -3,6 +3,8 @@ import { AreEqual } from "../package/types/utils";
 import { Observable } from "rxjs";
 import { ChildProcess } from "child_process";
 import { AssertTrue } from "./utils";
+import chokidar from "chokidar"
+import { Stats } from "fs";
 
 
 const click$ = fromEmitter(document.querySelector<HTMLElement>(".something")!).eventStrict("click");
@@ -25,6 +27,11 @@ const request$ =
 const message$ =
 	fromEmitter({} as SocketIO.Socket)
 	.event("some-message-event")
+
+const fileChange$ =
+	fromEmitter(chokidar.watch("foo"))
+	.withMethods("on", "off")
+	.eventStrict("change");
 
 type Tests = [
 	AreEqual<
@@ -58,6 +65,10 @@ type Tests = [
 	AreEqual<
 		typeof message$,
 		Observable<unknown>
+	>,
+	AreEqual<
+		typeof fileChange$,
+		Observable<[string, Stats?]>
 	>
 ];
 

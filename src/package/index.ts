@@ -8,12 +8,15 @@ import { AreEqual } from "./types/utils";
 
 type FromEmitter = 
 	<E>(emitter: E) =>
-		AreEqual<Method<E>, never> extends true
-			? WithMethods<E>
-			: {
-				event: EventSelector<E, Method<E>>,
-				eventStrict: EventSelectorStrict<E, Method<E>>
-			};
+		& { withMethods: WithMethods<E> }
+		& (
+			AreEqual<Method<E>, never> extends false
+				? {
+					event: EventSelector<E, Method<E>>,
+					eventStrict: EventSelectorStrict<E, Method<E>>
+				}
+				: {}
+		);
 
 type EventSelector<E, M extends string> =
 	<I extends EventIdentifier<E, M>>
@@ -25,8 +28,8 @@ type EventSelectorStrict<E, M extends string> =
 		(identifier: I, ...extras: EventExtras<E, M>)
 			=> Observable<ObservedValue<E, M, I>>;
 
-type WithMethods<E> = {
-	withMethods:<
+type WithMethods<E> = 
+	<
 		A extends ListenerHandlerKey<E> & string,
 		R extends
 			| Exclude<ListenerHandlerKey<E>, A> & string
@@ -38,62 +41,10 @@ type WithMethods<E> = {
 		{
 			event: EventSelector<E, A>
 			eventStrict: EventSelectorStrict<E, A>
-		}
-}
+		};
 
 export const fromEmitter = (
 	(emitter: any) =>
-		isDomEmitter(emitter) ? {
-			event: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["addEventListener", "removeEventListener"],
-					identifier,
-					...extras
-				),
-			eventStrict: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["addEventListener", "removeEventListener"],
-					identifier,
-					...extras
-				)
-		} :
-
-		isNodeEmitter(emitter) ? {
-			event: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["addListener", "removeListener"],
-					identifier,
-					...extras
-				),
-			eventStrict: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["addListener", "removeListener"],
-					identifier,
-					...extras
-				)
-		} :
-
-		isJqueryEmitter(emitter) ? {
-			event: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["on", "off"],
-					identifier,
-					...extras
-				),
-			eventStrict: (identifier: any, ...extras: any[]) =>
-				fromEvent(
-					emitter,
-					["on", "off"],
-					identifier,
-					...extras
-				)
-		} :
-		
 		({
 			withMethods: (a: string, r: string | null) => ({
 				event: (identifier: any, ...extras: any[]) =>
@@ -110,7 +61,61 @@ export const fromEmitter = (
 						identifier,
 						...extras
 					)
-			})
+			}),
+			...(
+				isDomEmitter(emitter) ? {
+					event: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["addEventListener", "removeEventListener"],
+							identifier,
+							...extras
+						),
+					eventStrict: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["addEventListener", "removeEventListener"],
+							identifier,
+							...extras
+						)
+				} :
+		
+				isNodeEmitter(emitter) ? {
+					event: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["addListener", "removeListener"],
+							identifier,
+							...extras
+						),
+					eventStrict: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["addListener", "removeListener"],
+							identifier,
+							...extras
+						)
+				} :
+		
+				isJqueryEmitter(emitter) ? {
+					event: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["on", "off"],
+							identifier,
+							...extras
+						),
+					eventStrict: (identifier: any, ...extras: any[]) =>
+						fromEvent(
+							emitter,
+							["on", "off"],
+							identifier,
+							...extras
+						)
+				} :
+
+				{}
+			)
 		})
 	) as FromEmitter;
 
