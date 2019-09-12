@@ -6,7 +6,7 @@ A statically typed, more powerful alternative to RxJS's `fromEvent`.
 $ npm i rxjs-from-emitter
 ```
 
-Also there's [proposal (rxjs #4891)](https://github.com/ReactiveX/rxjs/issues/4891) to put this is RxJS itself
+Also there's [proposal (rxjs #4891)](https://github.com/ReactiveX/rxjs/issues/4891) to put this in RxJS itself
 
 ## Features & Comparison with RxJS's `fromEvent`
 
