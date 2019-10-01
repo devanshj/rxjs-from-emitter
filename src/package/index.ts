@@ -153,7 +153,7 @@ const isNodeEmitter =
 const isJqueryEmitter =
 	(emitter: any): emitter is JqueryEmitter =>
 		emitter &&
-		typeof emitter.addListener === "function" &&
-		typeof emitter.removeListener === "function";
+		typeof emitter.on === "function" &&
+		typeof emitter.off === "function";
 
 export { EventIdentifier, EventIdentifierStrict, EventExtras, ObservedValue }
