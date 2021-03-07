@@ -46,12 +46,12 @@ export type EmptyInference =
 	{ "I": never, "A": never[], "X": never[] };
 
 type TransfromInference<T> = 
-	AreEqual<T, { "I": any, "A": any[], "X": any[] }> extends true
+	AreEqual<T, { "I": unknown, "A": unknown[], "X": any[] }> extends true
 		? EmptyInference
 		: T;
 
 export type InferencesLength<
-	G extends any[]
+	G extends unknown[]
 > =
 	SubtractFrom15<
 		MathMax<{
